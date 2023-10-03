@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}}
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        clj-http/clj-http {:mvn/version "3.12.3"}}
  :aliases
  {:repl
   {:extra-deps {nrepl/nrepl       {:mvn/version "0.9.0"}
