@@ -1,5 +1,9 @@
-(ns day2
-  (:require [core :refer [get-puzzle-input]]))
+(ns ^{:doc "Day 2: Inventory Management System"
+      :author "Adam Jeniski"}
+ day2 (:require [core :refer [get-puzzle-input]]
+                [clojure.set :refer [union]]))
+
+(def puzzle-input (get-puzzle-input 2))
 
 (defn count-letters [s]
   (->> (frequencies s)
@@ -7,20 +11,26 @@
        (frequencies)))
 
 ;; part 1
-(let [words (get-puzzle-input 2)
-      counts (reduce
-              (fn [{two :two, three :three}
-                   curr]
+(let [counts
+      (reduce (fn [acc curr]
                 (let [counts (count-letters curr)]
-                  {:two (if (contains? counts 2)
-                          (inc two)
-                          two)
-                   :three (if (contains? counts 3)
-                            (inc three)
-                            three)}))
+                  (-> acc
+                      (update-in [:two]   #(if (counts 2) (inc %) %))
+                      (update-in [:three] #(if (counts 3) (inc %) %)))))
               {:two 0, :three 0}
-              words)]
-  (* (:two counts) (:three counts)))
+              puzzle-input)]
+  (* (:two   counts)
+     (:three counts)))
 
 ;; part 2
-()
+(loop [words puzzle-input
+       seen  #{}]
+  (let [word (first words)
+        substrs (->> (range (count word))
+                     (map #(str (subs word 0 %) (subs word (inc %))))
+                     (into #{}))]
+    (or (reduce (fn [acc curr] (or acc (seen curr)))
+                nil
+                substrs)
+        (recur (rest words)
+               (union seen substrs)))))

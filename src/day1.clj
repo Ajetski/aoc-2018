@@ -1,15 +1,14 @@
 (ns day1
   (:require [core :refer [get-puzzle-input]]))
 
+(def puzzle-input (->> (get-puzzle-input 1)
+                       (map #(Integer/parseInt %))))
+
 ;; part 1
-(->> (get-puzzle-input 1)
-     (map #(Integer/parseInt %))
-     (reduce +))
+(reduce + puzzle-input)
 
 ;; part 2
-(loop [input (->> (get-puzzle-input 1)
-                  (map #(Integer/parseInt %))
-                  cycle)
+(loop [input (cycle puzzle-input)
        seen #{}
        freq 0]
   (let [new-freq (+ freq (first input))]
