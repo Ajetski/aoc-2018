@@ -5,11 +5,10 @@
 (def input-cache (atom {}))
 (def cookie "session=PUT YOUR SESSION COOKIE HERE")
 
-(defn slurp-input [day]
+(defn get-puzzle-input [day]
   (if (contains? @input-cache day)
     (@input-cache day)
-    (-> "https://adventofcode.com/2018/day/"
-        (str day "/input")
+    (-> (str "https://adventofcode.com/2018/day/" day "/input")
         (client/get {:throw-entire-message? true
                      :headers {"Cookie" cookie}})
         :body

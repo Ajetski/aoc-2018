@@ -1,13 +1,13 @@
 (ns day1
-  (:require [core :refer [slurp-input]]))
+  (:require [core :refer [get-puzzle-input]]))
 
 ;; part 1
-(->> (slurp-input 1)
+(->> (get-puzzle-input 1)
      (map #(Integer/parseInt %))
      (reduce +))
 
 ;; part 2
-(loop [input (->> (slurp-input 1)
+(loop [input (->> (get-puzzle-input 1)
                   (map #(Integer/parseInt %))
                   cycle)
        seen #{}
