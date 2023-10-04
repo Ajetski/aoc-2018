@@ -6,11 +6,11 @@
 (def cookie "session=PUT YOUR SESSION COOKIE HERE")
 
 (defn get-puzzle-input [day]
-  (if (contains? @input-cache day)
-    (@input-cache day)
-    (-> (str "https://adventofcode.com/2018/day/" day "/input")
-        (client/get {:throw-entire-message? true
-                     :headers {"Cookie" cookie}})
-        :body
-        string/split-lines)))
+  (or (@input-cache day)
+      (swap! input-cache assoc day
+             (-> (str "https://adventofcode.com/2018/day/" day "/input")
+                 (client/get {:throw-entire-message? true
+                              :headers {"Cookie" cookie}})
+                 :body
+                 string/split-lines))))
 
