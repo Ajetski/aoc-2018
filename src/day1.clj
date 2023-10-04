@@ -2,14 +2,14 @@
       :author "Adam Jeniski"}
  day1 (:require [core :refer [get-puzzle-input]]))
 
-(def puzzle-input (->> (get-puzzle-input 1)
+(def nums (->> (get-puzzle-input 1)
                        (map #(Integer/parseInt %))))
 
 ;; part 1
-(reduce + puzzle-input)
+(reduce + nums)
 
 ;; part 2
-(loop [input (cycle puzzle-input)
+(loop [input (cycle nums)
        seen #{}
        freq 0]
   (let [new-freq (+ freq (first input))]

@@ -3,10 +3,10 @@
  day2 (:require [core :refer [get-puzzle-input]]
                 [clojure.set :refer [union]]))
 
-(def puzzle-input (get-puzzle-input 2))
+(def words (get-puzzle-input 2))
 
 ;; part 1
-(->> puzzle-input
+(->> words
      (reduce (fn [acc word]
                (let [counts (-> word frequencies vals frequencies)]
                  (-> acc
@@ -24,4 +24,4 @@
             (or (some-> (some seen substrs) reduced)
                 (union seen substrs))))
         #{}
-        puzzle-input)
+        words)
