@@ -15,8 +15,8 @@
       (reduce (fn [acc curr]
                 (let [counts (count-letters curr)]
                   (-> acc
-                      (update-in [:two]   #(if (counts 2) (inc %) %))
-                      (update-in [:three] #(if (counts 3) (inc %) %)))))
+                      (update :two   #(if (counts 2) (inc %) %))
+                      (update :three #(if (counts 3) (inc %) %)))))
               {:two 0, :three 0}
               puzzle-input)]
   (* (:two   counts)
