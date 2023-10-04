@@ -29,7 +29,8 @@
         substrs (->> (range (count word))
                      (map #(str (subs word 0 %) (subs word (inc %))))
                      (into #{}))]
-    (or (reduce (fn [acc curr] (or acc (seen curr)))
+    (or (reduce (fn [acc curr] (or (some-> acc reduced)
+                                   (seen curr)))
                 nil
                 substrs)
         (recur (rest words)
