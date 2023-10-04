@@ -14,7 +14,7 @@
                      (update :three #(if (counts 3) (inc %) %)))))
              {:two 0, :three 0})
      vals
-     (apply *))
+     (reduce *))
 
 ;; part 2
 (reduce (fn [seen word]
