@@ -1,5 +1,6 @@
-(ns day1
-  (:require [core :refer [get-puzzle-input]]))
+(ns ^{:doc "Day 1: Chronal Calibration"
+      :author "Adam Jeniski"}
+  day1 (:require [core :refer [get-puzzle-input]]))
 
 (def puzzle-input (->> (get-puzzle-input 1)
                        (map #(Integer/parseInt %))))
