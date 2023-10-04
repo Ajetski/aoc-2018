@@ -19,17 +19,16 @@
                       (update :three #(if (counts 3) (inc %) %)))))
               {:two 0, :three 0}
               puzzle-input)]
-  (* (:two   counts)
+  (* (:two counts)
      (:three counts)))
 
 ;; part 2
-(loop [words puzzle-input
-       seen  #{}]
-  (let [word (first words)
-        substrs (->> (range (count word))
+(loop [[word & rest-words] puzzle-input
+       seen #{}]
+  (let [substrs (->> (range (count word))
                      (map #(str (subs word 0 %) (subs word (inc %))))
                      (into #{}))]
-    (or (reduce #(some-> %2 seen reduced)
-                substrs)
-        (recur (rest words)
+    (or (some seen substrs)
+        (recur rest-words
                (union seen substrs)))))
+
