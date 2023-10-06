@@ -3,7 +3,7 @@
             [clojure.string :as string]))
 
 (def input-cache (atom {}))
-(def cookie "session=PUT YOUR SESSION COOKIE HERE")
+(def cookie (str "session=" (slurp "session")))
 
 (defn get-puzzle-input [day]
   (or (@input-cache day)
