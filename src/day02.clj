@@ -1,6 +1,6 @@
 (ns ^{:doc "Day 2: Inventory Management System"
       :author "Adam Jeniski"}
- day2 (:require [core :refer [get-puzzle-input]]
+ day02 (:require [core :refer [get-puzzle-input]]
                 [clojure.set :refer [union]]))
 
 (def words (get-puzzle-input 2))
