@@ -11,7 +11,7 @@
 (def puzzle-input (->> (get-puzzle-input 3)
                        (map parse-line)))
 
-(defn get-coords [{x :x
+(defn get-coords-for-claim [{x :x
                    y :y
                    w :width
                    h :height}]
@@ -20,29 +20,23 @@
     {:x (+ x x-offset)
      :y (+ y y-offset)}))
 
+(def claims (reduce (fn [acc curr]
+                      (merge-with +
+                                  acc
+                                  (->> (get-coords-for-claim curr)
+                                       (map #(vector % 1))
+                                       (into {}))))
+                    {}
+                    puzzle-input))
+
 ;; part 1
-(->> puzzle-input
-     (reduce (fn [acc curr]
-               (merge-with +
-                           acc
-                           (->> (get-coords curr)
-                                (map #(vector % 1))
-                                (into {}))))
-             {})
+(->> claims
      (filter #(> (second %) 1))
      (count))
 
 ;; part 2
-(let [claims (reduce (fn [acc curr]
-                       (merge-with +
-                                   acc
-                                   (->> (get-coords curr)
-                                        (map #(vector % 1))
-                                        (into {}))))
-                     {}
-                     puzzle-input)]
-  (reduce (fn [_ curr]
-            (when (every? #(= 1 (claims %)) (get-coords curr))
-              (reduced (:id curr))))
-          puzzle-input))
+(reduce (fn [_ curr]
+          (when (every? #(= 1 (claims %)) (get-coords-for-claim curr))
+            (reduced (:id curr))))
+        puzzle-input)
 
